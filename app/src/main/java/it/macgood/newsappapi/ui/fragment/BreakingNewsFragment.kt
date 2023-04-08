@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BreakingNewsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentBreakingNewsBinding
-    val viewModel: NewsViewModel by viewModel()
+    private val viewModel: NewsViewModel by viewModel()
     private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(

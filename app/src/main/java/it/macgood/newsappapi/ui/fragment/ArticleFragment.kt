@@ -16,6 +16,7 @@ import it.macgood.newsappapi.model.Article
 class ArticleFragment : Fragment() {
 
     private lateinit var binding: FragmentArticleBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,6 +33,4 @@ class ArticleFragment : Fragment() {
 
         return binding.root
     }
-
-
 }
