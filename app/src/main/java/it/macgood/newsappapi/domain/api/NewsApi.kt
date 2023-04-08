@@ -1,7 +1,7 @@
-package it.macgood.newsappapi.api
+package it.macgood.newsappapi.domain.api
 
-import it.macgood.newsappapi.utils.Constants.Companion.API_KEY
-import it.macgood.newsappapi.model.NewsResponse
+import it.macgood.newsappapi.domain.model.NewsResponse
+import it.macgood.newsappapi.domain.api.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

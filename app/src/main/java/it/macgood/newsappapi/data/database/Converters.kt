@@ -1,7 +1,7 @@
-package it.macgood.newsappapi.database
+package it.macgood.newsappapi.data.database
 
 import androidx.room.TypeConverter
-import it.macgood.newsappapi.model.Source
+import it.macgood.newsappapi.domain.model.Source
 
 class Converters {
 

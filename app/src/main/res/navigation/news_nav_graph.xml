@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/breakingNewsFragment"
-        android:name="it.macgood.newsappapi.fragment.BreakingNewsFragment"
+        android:name="it.macgood.newsappapi.ui.fragment.BreakingNewsFragment"
         android:label="BreakingNewsFragment" >
         <action
             android:id="@+id/action_breakingNewsFragment_to_articleFragment"
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/articleFragment"
-        android:name="it.macgood.newsappapi.fragment.ArticleFragment"
+        android:name="it.macgood.newsappapi.ui.fragment.ArticleFragment"
         android:label="ArticleFragment" >
         <argument
             android:name="article"
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/savedNewsFragment"
-        android:name="it.macgood.newsappapi.fragment.SavedNewsFragment"
+        android:name="it.macgood.newsappapi.ui.fragment.SavedNewsFragment"
         android:label="SavedNewsFragment" >
         <action
             android:id="@+id/action_savedNewsFragment_to_articleFragment"
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchNewsFragment"
-        android:name="it.macgood.newsappapi.fragment.SearchNewsFragment"
+        android:name="it.macgood.newsappapi.ui.fragment.SearchNewsFragment"
         android:label="SearchNewsFragment" >
         <action
             android:id="@+id/action_searchNewsFragment_to_articleFragment"

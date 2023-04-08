@@ -1,4 +1,6 @@
-package it.macgood.newsappapi.model
+package it.macgood.newsappapi.domain.model
+
+import it.macgood.newsappapi.model.Article
 
 data class NewsResponse(
     val articles: List<Article>,

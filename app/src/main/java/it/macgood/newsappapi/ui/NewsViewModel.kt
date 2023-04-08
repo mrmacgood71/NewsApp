@@ -4,15 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import it.macgood.newsappapi.model.NewsResponse
-import it.macgood.newsappapi.repository.NewsRepository
+import it.macgood.newsappapi.data.repository.NewsRepositoryImpl
+import it.macgood.newsappapi.domain.model.NewsResponse
 import it.macgood.newsappapi.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import retrofit2.http.Query
 
 class NewsViewModel(
-    val newsRepository: NewsRepository
+    val newsRepositoryImpl: NewsRepositoryImpl
 ) : ViewModel() {
 
     private val _breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
@@ -30,13 +29,13 @@ class NewsViewModel(
 
     private fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         _breakingNews.postValue(Resource.Loading())
-        val response = newsRepository.getBreakingNews(countryCode, breakingNewsPage)
+        val response = newsRepositoryImpl.getBreakingNews(countryCode, breakingNewsPage)
         _breakingNews.postValue(handleBreakingNewsResponse(response))
     }
 
     fun searchNews(searchQuery: String) = viewModelScope.launch {
         searchNews.postValue(Resource.Loading())
-        val response = newsRepository.searchNews(searchQuery, searchNewsPage)
+        val response = newsRepositoryImpl.searchNews(searchQuery, searchNewsPage)
         searchNews.postValue(handleSearchNewsResponse(response))
     }
 

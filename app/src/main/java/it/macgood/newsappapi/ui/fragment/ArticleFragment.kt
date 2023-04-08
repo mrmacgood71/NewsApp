@@ -1,4 +1,4 @@
-package it.macgood.newsappapi.fragment
+package it.macgood.newsappapi.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -8,11 +8,8 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import it.macgood.newsappapi.databinding.FragmentArticleBinding
-import it.macgood.newsappapi.databinding.FragmentBreakingNewsBinding
-import it.macgood.newsappapi.databinding.FragmentSavedNewsBinding
 import it.macgood.newsappapi.model.Article
-import it.macgood.newsappapi.ui.NewsActivity
-import it.macgood.newsappapi.ui.NewsViewModel
+
 // TODO:
 //  1. fix webclient
 //  2. mb use vm instead of bundle

@@ -1,39 +1,27 @@
-package it.macgood.newsappapi.fragment
+package it.macgood.newsappapi.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import it.macgood.newsappapi.R
-import it.macgood.newsappapi.databinding.ActivityNewsBinding
-import it.macgood.newsappapi.databinding.FragmentSearchNewsBinding
-import it.macgood.newsappapi.repository.factory
-import it.macgood.newsappapi.ui.NewsActivity
+import it.macgood.newsappapi.databinding.FragmentBreakingNewsBinding
 import it.macgood.newsappapi.ui.NewsAdapter
 import it.macgood.newsappapi.ui.NewsViewModel
 import it.macgood.newsappapi.utils.Resource
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 // TODO:
 //  1. pagination
-//  2. di for viewmodel
-//  3. design
-//  4. copy to main fragment as a button
+//  2. design
 
-class SearchNewsFragment : BaseFragment() {
+class BreakingNewsFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentSearchNewsBinding
-    private val viewModel: NewsViewModel by viewModels{ factory() }
+    private lateinit var binding: FragmentBreakingNewsBinding
+    val viewModel: NewsViewModel by viewModel()
     private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(
@@ -41,24 +29,12 @@ class SearchNewsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSearchNewsBinding.inflate(inflater, container, false)
+
+        binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
         setupRecyclerView()
-
-        var job: Job? = null
-
-        binding.searchEditText.addTextChangedListener { editable ->
-            job?.cancel()
-            job = MainScope().launch {
-                delay(500L)
-                editable?.let {
-                    if (editable.toString().isNotEmpty()) {
-                        viewModel.searchNews(editable.toString())
-                    }
-                }
-            }
-        }
-
+        Log.d("TAG", "onCreateView: ")
         newsAdapter.setOnItemClickListener {
+            Log.d("TAG", "onCreateView: $it")
             findNavController().navigate(
                 R.id.action_breakingNewsFragment_to_articleFragment,
                 bundleOf(
@@ -67,7 +43,7 @@ class SearchNewsFragment : BaseFragment() {
             )
         }
 
-        viewModel.searchNews.observe(viewLifecycleOwner) { response ->
+        viewModel.breakingNews.observe(viewLifecycleOwner) { response ->
             when(response) {
                 is Resource.Success -> {
                     hideProgressBar(binding.paginationProgressBar)
@@ -91,10 +67,11 @@ class SearchNewsFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(): NewsAdapter {
         newsAdapter = NewsAdapter()
-        binding.searchNewsRecyclerView.apply {
+        binding.breakingNewsRecyclerView.apply {
             adapter = newsAdapter
         }
+        return newsAdapter
     }
 }

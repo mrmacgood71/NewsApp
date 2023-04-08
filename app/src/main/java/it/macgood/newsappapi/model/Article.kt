@@ -2,8 +2,10 @@ package it.macgood.newsappapi.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import it.macgood.newsappapi.domain.model.Source
 import java.io.Serializable
 
+// TODO: 1. fix
 @Entity(
     tableName = "articles"
 )

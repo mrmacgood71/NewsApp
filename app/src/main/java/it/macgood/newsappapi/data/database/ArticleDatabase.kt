@@ -1,4 +1,4 @@
-package it.macgood.newsappapi.database
+package it.macgood.newsappapi.data.database
 
 import android.content.Context
 import androidx.room.Database

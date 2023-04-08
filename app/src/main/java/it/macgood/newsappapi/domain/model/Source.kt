@@ -1,4 +1,4 @@
-package it.macgood.newsappapi.model
+package it.macgood.newsappapi.domain.model
 
 data class Source(
     val id: String,

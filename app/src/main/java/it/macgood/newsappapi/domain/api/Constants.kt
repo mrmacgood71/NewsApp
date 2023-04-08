@@ -1,4 +1,4 @@
-package it.macgood.newsappapi.utils
+package it.macgood.newsappapi.domain.api
 
 class Constants {
     companion object {
