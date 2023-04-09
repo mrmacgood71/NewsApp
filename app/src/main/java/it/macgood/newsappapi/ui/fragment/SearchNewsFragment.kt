@@ -23,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 //  1. pagination
 //  2. design
 //  3. copy to main fragment as a button
+const val INPUT_TYPE_DELAY = 500L
 
 class SearchNewsFragment : BaseFragment() {
 
@@ -43,7 +44,8 @@ class SearchNewsFragment : BaseFragment() {
         binding.searchEditText.addTextChangedListener { editable ->
             job?.cancel()
             job = MainScope().launch {
-                delay(500L)
+
+                delay(INPUT_TYPE_DELAY)
                 editable?.let {
                     if (editable.toString().isNotEmpty()) {
                         viewModel.searchNews(editable.toString())

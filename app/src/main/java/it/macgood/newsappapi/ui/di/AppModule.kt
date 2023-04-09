@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val appModule = module {
     viewModel<NewsViewModel> {
-        NewsViewModel(newsRepositoryImpl = get())
+        NewsViewModel(getNewsUseCase = get(), searchNewsUseCase = get())
     }
 }

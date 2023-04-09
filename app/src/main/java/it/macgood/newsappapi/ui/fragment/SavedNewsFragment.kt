@@ -11,6 +11,7 @@ import it.macgood.newsappapi.R
 import it.macgood.newsappapi.databinding.FragmentSavedNewsBinding
 import it.macgood.newsappapi.ui.NewsAdapter
 import it.macgood.newsappapi.ui.NewsViewModel
+import it.macgood.newsappapi.utils.toDataArticle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 // TODO: 1. save res to db

@@ -1,7 +1,8 @@
 package it.macgood.newsappapi.ui.di
 
-import it.macgood.newsappapi.data.repository.NewsRepositoryImpl
-import it.macgood.newsappapi.data.database.ArticleDatabase
+import it.macgood.data.repository.NewsRepositoryImpl
+import it.macgood.data.database.ArticleDatabase
+import it.macgood.domain.repository.NewsRepository
 import org.koin.dsl.module
 
 val dataModule = module {
@@ -10,7 +11,7 @@ val dataModule = module {
         ArticleDatabase(context = get())
     }
 
-    single<NewsRepositoryImpl> {
+    single<NewsRepository> {
         NewsRepositoryImpl(database = get(), api = get())
     }
 }

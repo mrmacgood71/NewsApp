@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- imageView corners-->
     <style name="ShapeAppearanceOverlay.App.CornerRadius" parent="">
         <item name="cornerSize">5%</item>
+    </style>
+
+    <!--fonts-->
+    <style name="LoraRegularFontStyle">
+        <item name="android:fontFamily">@font/lora_regular</item>
+    </style>
+    <style name="NotoSansRegularFontStyle">
+        <item name="android:fontFamily">@font/notosans_regular</item>
+    </style>
+    <style name="NotoSansMediumFontStyle">
+        <item name="android:fontFamily">@font/notosans_medium</item>
     </style>
 </resources>

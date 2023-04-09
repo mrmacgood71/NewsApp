@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import it.macgood.newsappapi.databinding.ItemArticlePreviewBinding
-import it.macgood.newsappapi.model.Article
+import it.macgood.domain.model.Article
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 

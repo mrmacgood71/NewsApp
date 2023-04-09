@@ -24,7 +24,7 @@
         android:label="ArticleFragment" >
         <argument
             android:name="article"
-            app:argType="it.macgood.newsappapi.model.Article" />
+            app:argType="it.macgood.data.model.Article" />
     </fragment>
     <fragment
         android:id="@+id/savedNewsFragment"

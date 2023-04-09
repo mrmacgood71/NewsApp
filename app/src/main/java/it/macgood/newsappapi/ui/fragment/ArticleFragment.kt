@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import it.macgood.newsappapi.databinding.FragmentArticleBinding
-import it.macgood.newsappapi.model.Article
+import it.macgood.data.model.Article
 
 // TODO:
 //  1. fix webclient
@@ -24,7 +24,7 @@ class ArticleFragment : Fragment() {
     ): View? {
         binding = FragmentArticleBinding.inflate(inflater, container, false)
 
-        val article = arguments?.getSerializable("article") as Article
+        val article = arguments?.getSerializable("article") as it.macgood.data.model.Article
         Log.d("TAG", "onCreateView: ${article.url}")
 
         binding.webView.webViewClient = WebViewClient()

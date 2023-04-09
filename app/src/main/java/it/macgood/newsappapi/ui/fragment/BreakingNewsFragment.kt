@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import it.macgood.data.model.Article
 import it.macgood.newsappapi.R
 import it.macgood.newsappapi.databinding.FragmentBreakingNewsBinding
 import it.macgood.newsappapi.ui.NewsAdapter
 import it.macgood.newsappapi.ui.NewsViewModel
 import it.macgood.newsappapi.utils.Resource
+import it.macgood.newsappapi.utils.toDataArticle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 // TODO:
@@ -32,13 +34,12 @@ class BreakingNewsFragment : BaseFragment() {
 
         binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
         setupRecyclerView()
-        Log.d("TAG", "onCreateView: ")
         newsAdapter.setOnItemClickListener {
-            Log.d("TAG", "onCreateView: $it")
+            val article: Article = it.toDataArticle()
             findNavController().navigate(
                 R.id.action_breakingNewsFragment_to_articleFragment,
                 bundleOf(
-                    Pair("article", it)
+                    Pair("article", article)
                 )
             )
         }
@@ -46,20 +47,16 @@ class BreakingNewsFragment : BaseFragment() {
         viewModel.breakingNews.observe(viewLifecycleOwner) { response ->
             when(response) {
                 is Resource.Success -> {
-                    hideProgressBar(binding.paginationProgressBar)
-
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles)
                     }
                 }
                 is Resource.Error -> {
-                    hideProgressBar(binding.paginationProgressBar)
                     response.message?.let {
                         Log.d("TAG", "onCreateView: $it")
                     }
                 }
                 is Resource.Loading -> {
-                    showProgressBar(binding.paginationProgressBar)
                 }
             }
         }

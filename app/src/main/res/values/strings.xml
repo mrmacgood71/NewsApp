@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NewsAppApi</string>
+    <string name="news_app">News App</string>
 </resources>

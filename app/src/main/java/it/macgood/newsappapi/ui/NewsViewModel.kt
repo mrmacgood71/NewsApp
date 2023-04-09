@@ -4,23 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import it.macgood.newsappapi.data.repository.NewsRepositoryImpl
-import it.macgood.newsappapi.domain.model.NewsResponse
+import it.macgood.domain.model.NewsResponse
+import it.macgood.domain.usecase.GetNewsUseCase
+import it.macgood.domain.usecase.SearchNewsUseCase
 import it.macgood.newsappapi.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class NewsViewModel(
-    val newsRepositoryImpl: NewsRepositoryImpl
+    private val getNewsUseCase: GetNewsUseCase, private val searchNewsUseCase: SearchNewsUseCase
 ) : ViewModel() {
 
     private val _breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     val breakingNews: LiveData<Resource<NewsResponse>> = _breakingNews
-
     var breakingNewsPage = 1
 
-    val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-//    val searchNews: LiveData<Resource<NewsResponse>> = _searchNews
+    private val _searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    val searchNews: LiveData<Resource<NewsResponse>> = _searchNews
     var searchNewsPage = 1
 
     init {
@@ -29,17 +29,17 @@ class NewsViewModel(
 
     private fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         _breakingNews.postValue(Resource.Loading())
-        val response = newsRepositoryImpl.getBreakingNews(countryCode, breakingNewsPage)
+        val response = getNewsUseCase.execute(countryCode, breakingNewsPage)
         _breakingNews.postValue(handleBreakingNewsResponse(response))
     }
 
     fun searchNews(searchQuery: String) = viewModelScope.launch {
-        searchNews.postValue(Resource.Loading())
-        val response = newsRepositoryImpl.searchNews(searchQuery, searchNewsPage)
-        searchNews.postValue(handleSearchNewsResponse(response))
+        _searchNews.postValue(Resource.Loading())
+        val response = searchNewsUseCase.execute(searchQuery, searchNewsPage)
+        _searchNews.postValue(handleSearchNewsResponse(response))
     }
 
-    private fun handleBreakingNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
+    private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success<NewsResponse>(it)
@@ -48,7 +48,7 @@ class NewsViewModel(
         return Resource.Error(response.message())
     }
 
-    private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
+    private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success<NewsResponse>(it)
