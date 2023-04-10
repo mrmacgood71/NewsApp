@@ -13,6 +13,7 @@ import it.macgood.newsappapi.databinding.FragmentSearchNewsBinding
 import it.macgood.newsappapi.ui.NewsAdapter
 import it.macgood.newsappapi.ui.NewsViewModel
 import it.macgood.newsappapi.utils.Resource
+import it.macgood.newsappapi.utils.toDataArticle
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -56,9 +57,9 @@ class SearchNewsFragment : BaseFragment() {
 
         newsAdapter.setOnItemClickListener {
             findNavController().navigate(
-                R.id.action_breakingNewsFragment_to_articleFragment,
+                R.id.action_searchNewsFragment_to_articleFragment,
                 bundleOf(
-                    Pair("article", it)
+                    Pair("article", it.toDataArticle())
                 )
             )
         }
@@ -88,7 +89,7 @@ class SearchNewsFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter()
+        newsAdapter = NewsAdapter(viewModel)
         binding.searchNewsRecyclerView.apply {
             adapter = newsAdapter
         }

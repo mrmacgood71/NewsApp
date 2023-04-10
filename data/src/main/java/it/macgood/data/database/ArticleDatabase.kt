@@ -9,6 +9,7 @@ import it.macgood.data.model.Article
 
 @Database(
     entities = [Article::class],
+    exportSchema = true,
     version = 1
 )
 @TypeConverters(Converters::class)

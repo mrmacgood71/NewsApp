@@ -1,5 +1,4 @@
-Just an init
-  must necessarily be added
-  1. usecases
-  2. di
-  3. multimodule
+Todos
+  1. Create db Use Cases
+  2. Impl comments in NewsRepository
+  3. Change SavedNewsRepositoryImpl to Use Cases in NewsViewModel

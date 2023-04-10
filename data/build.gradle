@@ -9,6 +9,10 @@ android {
     namespace 'it.macgood.data'
     compileSdk 32
 
+//    packagingOptions {
+//        exclude 'it/macgood/data/BuildConfig.class'
+//    }
+
     defaultConfig {
         minSdk 23
         targetSdk 32

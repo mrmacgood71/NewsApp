@@ -24,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         val newsViewModel: NewsViewModel by viewModel()
-        newsViewModel.breakingNews.observe(this) {response ->
+        newsViewModel.breakingNews.observe(this) { response ->
             when(response) {
                 is Resource.Success -> {
                     val intent = Intent(this, NewsActivity::class.java)

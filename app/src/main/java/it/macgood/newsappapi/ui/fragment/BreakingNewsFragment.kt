@@ -35,11 +35,10 @@ class BreakingNewsFragment : BaseFragment() {
         binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
         setupRecyclerView()
         newsAdapter.setOnItemClickListener {
-            val article: Article = it.toDataArticle()
             findNavController().navigate(
                 R.id.action_breakingNewsFragment_to_articleFragment,
                 bundleOf(
-                    Pair("article", article)
+                    Pair("article", it.toDataArticle())
                 )
             )
         }
@@ -53,7 +52,7 @@ class BreakingNewsFragment : BaseFragment() {
                 }
                 is Resource.Error -> {
                     response.message?.let {
-                        Log.d("TAG", "onCreateView: $it")
+                        Log.d("TAG", "onCreateViewError: $it")
                     }
                 }
                 is Resource.Loading -> {
@@ -65,7 +64,7 @@ class BreakingNewsFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView(): NewsAdapter {
-        newsAdapter = NewsAdapter()
+        newsAdapter = NewsAdapter(viewModel)
         binding.breakingNewsRecyclerView.apply {
             adapter = newsAdapter
         }

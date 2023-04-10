@@ -1,5 +1,6 @@
 package it.macgood.newsappapi.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,7 +10,9 @@ import com.bumptech.glide.Glide
 import it.macgood.newsappapi.databinding.ItemArticlePreviewBinding
 import it.macgood.domain.model.Article
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter(
+    private val viewModel: NewsViewModel
+) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
@@ -43,6 +46,9 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
             publishedAtTextView.text = article.publishedAt
             holder.itemView.setOnClickListener {
                 onItemClickListener?.let { it(article) }
+                viewModel.url.value = article.url
+                Log.d("TAG", "onBindViewHolder: ${article.url}")
+                Log.d("TAG", "onBindViewHolder: ${viewModel.url.value}")
             }
         }
     }
@@ -51,6 +57,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
+        Log.d("TAG", "onBindViewHolder: listener")
     }
 
     override fun getItemCount(): Int = differ.currentList.size

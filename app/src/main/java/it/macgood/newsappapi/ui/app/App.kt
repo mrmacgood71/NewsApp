@@ -1,6 +1,7 @@
 package it.macgood.newsappapi.ui.app
 
 import android.app.Application
+import it.macgood.newsappapi.BuildConfig
 import it.macgood.newsappapi.ui.di.appModule
 import it.macgood.newsappapi.ui.di.dataModule
 import it.macgood.newsappapi.ui.di.networkModule
