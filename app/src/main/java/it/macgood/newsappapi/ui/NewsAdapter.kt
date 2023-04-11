@@ -1,5 +1,7 @@
 package it.macgood.newsappapi.ui
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,8 +9,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import it.macgood.newsappapi.databinding.ItemArticlePreviewBinding
+import com.bumptech.glide.RequestBuilder
 import it.macgood.domain.model.Article
+import it.macgood.newsappapi.databinding.ItemArticlePreviewBinding
+import okhttp3.Request
+import java.io.InputStream
+import java.net.URL
 
 class NewsAdapter(
     private val viewModel: NewsViewModel
@@ -39,16 +45,24 @@ class NewsAdapter(
                 Glide.with(this)
                     .load(article.urlToImage)
                     .into(holder.binding.articleImageView)
+
+
+                val split = article.url.split("/")
+
+                Glide.with(this)
+                    .load(URL("${split[0]}//${split[2]}/favicon.ico"))
+                    .into(sourceImage)
             }
             sourceTextView.text = article.source.name
             titleTextView.text = article.title
             descriptionTextView.text = article.description
             publishedAtTextView.text = article.publishedAt
+
+
             holder.itemView.setOnClickListener {
                 onItemClickListener?.let { it(article) }
                 viewModel.url.value = article.url
-                Log.d("TAG", "onBindViewHolder: ${article.url}")
-                Log.d("TAG", "onBindViewHolder: ${viewModel.url.value}")
+
             }
         }
     }
@@ -57,7 +71,6 @@ class NewsAdapter(
 
     fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
-        Log.d("TAG", "onBindViewHolder: listener")
     }
 
     override fun getItemCount(): Int = differ.currentList.size

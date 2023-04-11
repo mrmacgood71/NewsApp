@@ -2,8 +2,12 @@
 <resources>
 
     <!-- imageView corners-->
-    <style name="ShapeAppearanceOverlay.App.CornerRadius" parent="">
+    <style name="ShapeAppearanceOverlay.App.ContentImageViewCornerRadius" parent="">
         <item name="cornerSize">5%</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.SourceImageViewCornerRadius" parent="">
+        <item name="cornerSize">10%</item>
     </style>
 
     <!--fonts-->

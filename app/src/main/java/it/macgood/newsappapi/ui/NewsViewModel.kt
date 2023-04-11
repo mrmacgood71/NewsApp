@@ -8,6 +8,7 @@ import it.macgood.data.repository.SavedNewsRepositoryImpl
 import it.macgood.domain.model.Article as ArticleDto
 import it.macgood.domain.model.NewsResponse
 import it.macgood.domain.usecase.*
+import it.macgood.newsappapi.ui.fragment.BreakingNewsFragment
 import it.macgood.newsappapi.utils.Resource
 import it.macgood.newsappapi.utils.toDataArticle
 import kotlinx.coroutines.launch
@@ -23,9 +24,12 @@ class NewsViewModel(
     val breakingNews: LiveData<Resource<NewsResponse>> = _breakingNews
     var breakingNewsPage = 1
 
+    var breakingNewsResponse: NewsResponse? = null
+
     private val _searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     val searchNews: LiveData<Resource<NewsResponse>> = _searchNews
     var searchNewsPage = 1
+    var searchNewsResponse: NewsResponse? = null
 
     val url: MutableLiveData<String> by lazy { MutableLiveData() }
 
@@ -50,7 +54,7 @@ class NewsViewModel(
         savedNewsRepositoryImpl.deleteArticle(articleDto.toDataArticle())
     }
 
-    private fun getBreakingNews(countryCode: String) = viewModelScope.launch {
+    fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         _breakingNews.postValue(Resource.Loading())
         val response = getNewsUseCase.execute(countryCode, breakingNewsPage)
         _breakingNews.postValue(handleBreakingNewsResponse(response))
@@ -59,7 +63,16 @@ class NewsViewModel(
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
-                return Resource.Success<NewsResponse>(it)
+                breakingNewsPage++
+                if (breakingNewsResponse == null) {
+                    breakingNewsResponse = it
+                } else {
+                    val oldArticles = breakingNewsResponse?.articles
+                    val newArticles = it.articles
+                    oldArticles?.addAll(newArticles)
+
+                }
+                return Resource.Success<NewsResponse>(breakingNewsResponse ?: it)
             }
         }
         return Resource.Error(response.message())
@@ -68,7 +81,16 @@ class NewsViewModel(
     private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
-                return Resource.Success<NewsResponse>(it)
+                searchNewsPage++
+                if (searchNewsResponse == null) {
+                    searchNewsResponse = it
+                } else {
+                    val oldArticles = searchNewsResponse?.articles
+                    val newArticles = it.articles
+                    oldArticles?.addAll(newArticles)
+
+                }
+                return Resource.Success<NewsResponse>(searchNewsResponse ?: it)
             }
         }
         return Resource.Error(response.message())
