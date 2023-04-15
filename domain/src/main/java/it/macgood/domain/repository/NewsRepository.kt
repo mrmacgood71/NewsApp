@@ -5,9 +5,13 @@ import retrofit2.Response
 
 interface NewsRepository {
 
-    suspend fun getBreakingNews(countyCode: String, pageNumber: Int) : Response<NewsResponse>
+    suspend fun getBreakingNews(countyCode: String, pageNumber: Int): Response<NewsResponse>
 
     suspend fun searchNews(searchQuery: String, pageNumber: Int): Response<NewsResponse>
+
+    suspend fun getBreakingNewsBySources(source: String): Response<NewsResponse>
+
+
 // TODO:
 //  1. implement this
 

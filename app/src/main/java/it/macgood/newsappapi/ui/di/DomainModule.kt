@@ -14,11 +14,10 @@ val networkModule = module {
     factory { provideOkHttpClient(get()) }
     factory<NewsApi> { provideNewsApi(get()) }
     single<Retrofit> { provideRetrofit(get()) }
+
     single<GetNewsUseCase> { GetNewsUseCase(repository = get()) }
     single<SearchNewsUseCase> { SearchNewsUseCase(repository = get()) }
-    single<SaveArticleUseCase> { SaveArticleUseCase(repository = get()) }
-    single<GetSavedNewsUseCase> { GetSavedNewsUseCase(repository = get()) }
-    single<DeleteSavedNewsUseCase> { DeleteSavedNewsUseCase(repository = get()) }
+    single<GetNewsBySourceUseCase> { GetNewsBySourceUseCase(repository = get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient) : Retrofit {

@@ -1,24 +1,16 @@
-package it.macgood.newsappapi.ui
+package it.macgood.newsappapi.ui.fragment.adapter
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import it.macgood.domain.model.Article
 import it.macgood.newsappapi.databinding.ItemArticlePreviewBinding
-import okhttp3.Request
-import java.io.InputStream
 import java.net.URL
 
-class NewsAdapter(
-    private val viewModel: NewsViewModel
-) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
@@ -58,11 +50,8 @@ class NewsAdapter(
             descriptionTextView.text = article.description
             publishedAtTextView.text = article.publishedAt
 
-
             holder.itemView.setOnClickListener {
                 onItemClickListener?.let { it(article) }
-                viewModel.url.value = article.url
-
             }
         }
     }

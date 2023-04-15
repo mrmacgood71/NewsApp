@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="16dp"
+    android:layout_margin="4dp"
+    android:backgroundTint="@color/white"
     android:background="?android:selectableItemBackground"
-    android:layout_margin="8dp">
+    app:cardCornerRadius="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,32 +20,32 @@
             android:id="@+id/sourceLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/sourceImage"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.SourceImageViewCornerRadius"
                 android:layout_width="24dp"
-                android:layout_height="24dp"/>
+                android:layout_height="24dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.SourceImageViewCornerRadius" />
 
             <TextView
                 android:id="@+id/sourceTextView"
                 style="@style/NotoSansRegularFontStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/black"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="SOURCE" />
+                android:text="SOURCE"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -51,32 +53,30 @@
             android:id="@+id/sourceDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#9DA3A7"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintTop_toBottomOf="@id/sourceLayout"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="4dp"
+            android:background="@color/dividerColor"
             app:layout_constraintEnd_toEndOf="parent"
-            />
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sourceLayout" />
 
         <TextView
             android:id="@+id/titleTextView"
+            style="@style/NotoSansRegularFontStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="3"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sourceDivider"
-            style="@style/NotoSansRegularFontStyle"
             tools:text="TITLE" />
 
 
@@ -84,26 +84,26 @@
             android:id="@+id/articleImageView"
             android:layout_width="match_parent"
             android:layout_height="216dp"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ContentImageViewCornerRadius"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ContentImageViewCornerRadius" />
 
         <TextView
             android:id="@+id/descriptionTextView"
+            style="@style/NotoSansRegularFontStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="5"
-            android:textSize="14sp"
-            android:text="DESCRIPTION"
-            style="@style/NotoSansRegularFontStyle"
+            android:text="@string/description"
             android:textColor="@android:color/black"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/articleImageView" />
@@ -111,11 +111,11 @@
 
         <TextView
             android:id="@+id/publishedAtTextView"
+            style="@style/NotoSansRegularFontStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            style="@style/NotoSansRegularFontStyle"
-            android:text="PUBLISHED AT"
+            android:text="@string/published_at"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
 

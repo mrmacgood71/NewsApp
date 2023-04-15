@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lightOrangeLogo">#eeb894</color>
     <color name="darkBlueLogo">#063040</color>
+    <color name="nightColor">#091f36</color>
+    <color name="eveningColor">#c76258</color>
+    <color name="eveningColor2">#88448d</color>
+    <color name="eveningColor3">#425fd2</color>
+    <color name="dividerColor">#9DA3A7</color>
+    <color name="dayTitleColor">#DBDDDE</color>
 </resources>

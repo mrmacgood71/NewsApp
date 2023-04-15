@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">NewsAppApi</string>
     <string name="news_app">News App</string>
+    <string name="news_by_publisher">News by Publisher</string>
+    <string name="all_news">All news</string>
+    <string name="published_at">PUBLISHED AT</string>
+    <string name="description">DESCRIPTION</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

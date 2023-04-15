@@ -4,6 +4,9 @@ import it.macgood.data.repository.NewsRepositoryImpl
 import it.macgood.data.database.ArticleDatabase
 import it.macgood.data.repository.SavedNewsRepositoryImpl
 import it.macgood.domain.repository.NewsRepository
+import it.macgood.domain.usecase.DeleteSavedNewsUseCase
+import it.macgood.domain.usecase.GetSavedNewsUseCase
+import it.macgood.domain.usecase.SaveArticleUseCase
 import org.koin.dsl.module
 
 val dataModule = module {
@@ -19,4 +22,9 @@ val dataModule = module {
     single {
         SavedNewsRepositoryImpl(database = get())
     }
+
+
+    single<SaveArticleUseCase> { SaveArticleUseCase(repository = get()) }
+    single<GetSavedNewsUseCase> { GetSavedNewsUseCase(repository = get()) }
+    single<DeleteSavedNewsUseCase> { DeleteSavedNewsUseCase(repository = get()) }
 }

@@ -1,4 +1,4 @@
-package it.macgood.newsappapi.ui
+package it.macgood.newsappapi.ui.activity
 
 import android.content.res.ColorStateList
 import android.os.Bundle

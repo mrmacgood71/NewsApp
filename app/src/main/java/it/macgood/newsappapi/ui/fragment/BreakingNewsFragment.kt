@@ -1,25 +1,31 @@
 package it.macgood.newsappapi.ui.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AbsListView
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import it.macgood.data.api.Constants.Companion.QUERY_PAGE_SIZE
-import it.macgood.data.model.Article
 import it.macgood.newsappapi.R
 import it.macgood.newsappapi.databinding.FragmentBreakingNewsBinding
-import it.macgood.newsappapi.ui.NewsAdapter
-import it.macgood.newsappapi.ui.NewsViewModel
+import it.macgood.newsappapi.ui.fragment.adapter.NewsAdapter
+import it.macgood.newsappapi.ui.fragment.adapter.StoryCircleAdapter
+import it.macgood.newsappapi.ui.fragment.viewmodel.NewsViewModel
 import it.macgood.newsappapi.utils.Resource
+import it.macgood.newsappapi.utils.TimeChecker
+import it.macgood.newsappapi.utils.TimeOfDay
 import it.macgood.newsappapi.utils.toDataArticle
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.concurrent.RecursiveAction
 
 class BreakingNewsFragment : BaseFragment() {
 
@@ -35,6 +41,8 @@ class BreakingNewsFragment : BaseFragment() {
 
         binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
         setupRecyclerView()
+        configureAppBar()
+
         newsAdapter.setOnItemClickListener {
             findNavController().navigate(
                 R.id.action_breakingNewsFragment_to_articleFragment,
@@ -42,6 +50,35 @@ class BreakingNewsFragment : BaseFragment() {
                     Pair("article", it.toDataArticle())
                 )
             )
+        }
+
+        val storyCircleAdapter = StoryCircleAdapter(images)
+
+
+        viewModel.getNewsBySource("techcrunch,cnn,reuters,bbc-news,abc-news,bloomberg,espn,the-washington-post")
+
+        viewModel.sourceNews.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is Resource.Success -> {
+                    response.data?.let {
+                        storyCircleAdapter.differ.submitList(it.articles)
+
+
+                        binding.circleStoriesRecyclerView.adapter = storyCircleAdapter
+                        storyCircleAdapter.differ.currentList.forEach { Log.d(TAG, "onCreateView: $it") }
+
+                    }
+                }
+                is Resource.Loading -> {
+
+                }
+                is Resource.Error -> {
+                    response.message?.let {
+                        Log.d(TAG, "onCreateViewError: $it")
+                    }
+                }
+            }
+
         }
 
         viewModel.breakingNews.observe(viewLifecycleOwner) { response ->
@@ -58,7 +95,7 @@ class BreakingNewsFragment : BaseFragment() {
                 }
                 is Resource.Error -> {
                     response.message?.let {
-                        Log.d("TAG", "onCreateViewError: $it")
+                        Log.d(TAG, "onCreateViewError: $it")
                     }
                 }
                 is Resource.Loading -> {
@@ -67,6 +104,37 @@ class BreakingNewsFragment : BaseFragment() {
         }
 
         return binding.root
+    }
+
+    private fun configureAppBar() {
+        val window = requireActivity().window
+        val timeOfDay = TimeChecker.getTimeOfDay()
+        val toolbar = binding.appbar.getChildAt(0) as CollapsingToolbarLayout
+        val username = "user"
+
+        if (timeOfDay == TimeOfDay.DAY) {
+            window.statusBarColor = getColor(R.color.lightOrangeLogo)
+
+            toolbar.contentScrim = getDrawable(R.color.lightOrangeLogo)
+            toolbar.title = "Good day, $username"
+//            toolbar.setExpandedTitleColor(getColor(R.color.dayTitleColor))
+
+            binding.appbar.background = getDrawable(R.drawable.sunrise)
+        } else if (timeOfDay == TimeOfDay.EVENING) {
+            window.statusBarColor = getColor(R.color.eveningColor)
+
+            toolbar.contentScrim = getDrawable(R.color.eveningColor)
+            toolbar.title = "Good evening, $username"
+
+            binding.appbar.background = getDrawable(R.drawable.sunset11)
+        } else {
+            window.statusBarColor = getColor(R.color.nightColor)
+
+            toolbar.contentScrim = getDrawable(R.color.nightColor)
+            toolbar.title = "Good night, $username"
+
+            binding.appbar.background = getDrawable(R.drawable.night1)
+        }
     }
 
     var isLoading = false
@@ -99,14 +167,30 @@ class BreakingNewsFragment : BaseFragment() {
                 isScrolling = false
             }
         }
+
     }
 
     private fun setupRecyclerView(): NewsAdapter {
-        newsAdapter = NewsAdapter(viewModel)
+        newsAdapter = NewsAdapter()
         binding.breakingNewsRecyclerView.apply {
             adapter = newsAdapter
             addOnScrollListener(this@BreakingNewsFragment.scrollListener)
         }
         return newsAdapter
     }
+
+    companion object {
+        const val TAG = "TAG"
+        val images: List<Int> = listOf(
+            R.drawable.first,
+            R.drawable.second,
+            R.drawable.third,
+            R.drawable.first,
+            R.drawable.second,
+            R.drawable.third,
+            R.drawable.second,
+            R.drawable.third,
+        )
+    }
+
 }

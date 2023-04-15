@@ -1,20 +1,14 @@
-package it.macgood.newsappapi.ui
+package it.macgood.newsappapi.ui.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
-import it.macgood.justnav.viewBinding
 import it.macgood.newsappapi.R
-import it.macgood.newsappapi.databinding.ActivitySplashBinding
+import it.macgood.newsappapi.ui.fragment.viewmodel.NewsViewModel
 import it.macgood.newsappapi.utils.Resource
-import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import retrofit2.Response
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

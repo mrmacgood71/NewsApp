@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import it.macgood.data.api.Constants
 import it.macgood.newsappapi.R
 import it.macgood.newsappapi.databinding.FragmentSearchNewsBinding
-import it.macgood.newsappapi.ui.NewsAdapter
-import it.macgood.newsappapi.ui.NewsViewModel
+import it.macgood.newsappapi.ui.fragment.adapter.NewsAdapter
+import it.macgood.newsappapi.ui.fragment.viewmodel.NewsViewModel
 import it.macgood.newsappapi.utils.Resource
 import it.macgood.newsappapi.utils.toDataArticle
 import kotlinx.coroutines.Job
@@ -43,6 +43,7 @@ class SearchNewsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchNewsBinding.inflate(inflater, container, false)
+        requireActivity().window.setBackgroundDrawable(getDrawable(R.color.white))
         setupRecyclerView()
 
         var job: Job? = null
@@ -141,7 +142,7 @@ class SearchNewsFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter(viewModel)
+        newsAdapter = NewsAdapter()
         binding.searchNewsRecyclerView.apply {
             adapter = newsAdapter
             addOnScrollListener(this@SearchNewsFragment.scrollListener)

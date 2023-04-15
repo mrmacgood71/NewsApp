@@ -14,8 +14,8 @@ import it.macgood.data.database.toArticleDto
 import it.macgood.domain.model.Article
 import it.macgood.newsappapi.R
 import it.macgood.newsappapi.databinding.FragmentSavedNewsBinding
-import it.macgood.newsappapi.ui.NewsAdapter
-import it.macgood.newsappapi.ui.NewsViewModel
+import it.macgood.newsappapi.ui.fragment.adapter.NewsAdapter
+import it.macgood.newsappapi.ui.fragment.viewmodel.NewsViewModel
 import it.macgood.newsappapi.utils.toDataArticle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -84,7 +84,7 @@ class SavedNewsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter(viewModel)
+        newsAdapter = NewsAdapter()
         binding.savedNewsRecyclerView.apply {
             adapter = newsAdapter
         }

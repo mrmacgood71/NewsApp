@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import it.macgood.data.database.toArticleDto
 import it.macgood.newsappapi.databinding.FragmentArticleBinding
 import it.macgood.data.model.Article
-import it.macgood.newsappapi.ui.NewsViewModel
+import it.macgood.newsappapi.ui.fragment.viewmodel.NewsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 // TODO:
